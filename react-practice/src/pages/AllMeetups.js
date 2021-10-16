@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react/cjs/react.development";
-import MeetupList from "../components/meetups/MeetupList";
+import { useState, useEffect } from 'react';
+
+import MeetupList from '../components/meetups/MeetupList';
 
 function AllMeetupsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadedMeetups, setLoadedMeetups] = useState([]);
+
   useEffect(() => {
     setIsLoading(true);
     fetch(
@@ -13,32 +15,34 @@ function AllMeetupsPage() {
         return response.json();
       })
       .then((data) => {
-        const meetupsData=[];
-        for(const key in data){
-          const meetupObj={
-            id:key,...data[key]
+        const meetups = [];
+
+        for (const key in data) {
+          const meetup = {
+            id: key,
+            ...data[key]
           };
-          meetupsData.push(meetupObj);
+
+          meetups.push(meetup);
         }
+
         setIsLoading(false);
-        setLoadedMeetups(meetupsData);
-      })
-      .catch((error) => {
-        console.log(error);
+        setLoadedMeetups(meetups);
       });
   }, []);
 
   if (isLoading) {
     return (
       <section>
-        <p>Loading.....</p>
+        <p>Loading...</p>
       </section>
     );
   }
+
   return (
     <section>
-      <h1>All Meetups Page</h1>
-      <MeetupList items={loadedMeetups}></MeetupList>
+      <h1>All Meetups</h1>
+      <MeetupList meetups={loadedMeetups} />
     </section>
   );
 }
