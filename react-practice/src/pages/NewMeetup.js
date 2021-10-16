@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import NewMeetupForm from "../components/meetups/NewMeetupForm";
 
-export default function NewMeetupsPage() {
+export default function NewMeetupPage() {
   const history = useHistory();
 
   function addMeetupHandler(data) {
